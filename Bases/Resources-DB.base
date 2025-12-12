@@ -1,0 +1,28 @@
+filters: file.inFolder("Resources")
+properties:
+  category:
+    displayName: Category
+  area:
+    displayName: Area
+  type:
+    displayName: Type
+  tags:
+    displayName: Tags
+  rating:
+    displayName: Rating
+  date-added:
+    displayName: Added
+  url:
+    displayName: URL
+views:
+  - type: table
+    name: Resources
+    order:
+      - file.name
+      - category
+      - area
+      - type
+      - rating
+      - url
+      - date-added
+      - tags

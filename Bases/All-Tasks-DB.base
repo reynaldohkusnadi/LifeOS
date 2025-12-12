@@ -1,0 +1,30 @@
+filters: file.inFolder("Tasks")
+formulas:
+  project-status: project.status
+properties:
+  task-name:
+    displayName: Task Name
+  project:
+    displayName: Project
+  status:
+    displayName: Status
+  priority:
+    displayName: Priority
+  due-date:
+    displayName: Due Date
+  area:
+    displayName: Area
+  formula.project-status:
+    displayName: Project Status
+views:
+  - type: table
+    name: Tasks
+    order:
+      - file.name
+      - task-name
+      - project
+      - status
+      - priority
+      - due-date
+      - formula.project-status
+      - area

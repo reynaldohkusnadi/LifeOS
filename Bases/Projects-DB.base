@@ -1,0 +1,25 @@
+filters: file.inFolder("Projects")
+properties:
+  status:
+    displayName: Status
+  priority:
+    displayName: Priority
+  area:
+    displayName: Area
+  due-date:
+    displayName: Due Date
+  progress:
+    displayName: Progress
+  related-tasks:
+    displayName: Tasks
+views:
+  - type: table
+    name: Projects
+    order:
+      - file.name
+      - status
+      - priority
+      - area
+      - due-date
+      - progress
+      - related-tasks

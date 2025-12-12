@@ -1,0 +1,38 @@
+filters: file.inFolder("Areas")
+properties:
+  area-type:
+    displayName: Category
+  type:
+    displayName: Type
+  projects:
+    displayName: Projects
+  last-reviewed:
+    displayName: Last Review
+  goals:
+    displayName: Goals
+views:
+  - type: table
+    name: Areas
+    groupBy:
+      property: area-type
+      direction: ASC
+    order:
+      - file.name
+      - area-type
+      - last-reviewed
+      - goals
+    sort:
+      - property: projects
+        direction: DESC
+    group_by:
+      - area-type
+    columnSize:
+      note.projects: 128
+  - type: cards
+    name: Card
+    groupBy:
+      property: area-type
+      direction: ASC
+    image: file.file
+    imageFit: contain
+    cardSize: 210

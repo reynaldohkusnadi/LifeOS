@@ -1,0 +1,20 @@
+filters: file.inFolder("Notes")
+properties:
+  created:
+    displayName: Created
+  modified:
+    displayName: Modified
+  tags:
+    displayName: Tags
+  type:
+    displayName: Type
+views:
+  - type: table
+    name: Notes
+    order:
+      - file.name
+      - created
+      - file.mtime
+      - tags
+      - type
+    limit: 20
