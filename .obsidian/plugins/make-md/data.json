@@ -41,14 +41,14 @@
     "/",
     "//Tags",
     "//Resources",
-    "//Notes",
     "//Projects",
     "//Bases",
     "//Areas",
     "//Templates",
     "//Prompts",
     "//Network",
-    "//Tasks"
+    "//Tasks",
+    "//Notes"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
