@@ -26,3 +26,5 @@ views:
       - url
       - date-added
       - tags
+    columnSize:
+      note.type: 83

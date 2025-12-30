@@ -203,12 +203,12 @@ The vault includes a "Second Brain" feature that uses Claude to capture, summari
 | PDFs | Local file path | Read directly, content summarized |
 | Twitter/X | `twitter.com`, `x.com` | Thread content fetched and summarized |
 
-### Using the Capture Command
-Run `/capture-resource` or ask Claude to "capture this: [URL]"
+### Using the Summarize Command
+Run `/summarize-resource` or ask Claude to "summarize this: [URL]"
 
 Example:
 ```
-User: Capture this: https://youtube.com/watch?v=xyz
+User: summarize this: https://youtube.com/watch?v=xyz
 
 Claude will:
 1. Detect content type (YouTube video)
