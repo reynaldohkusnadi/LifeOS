@@ -203,15 +203,16 @@ modified: {YYYY-MM-DD}
 - {Key insight 2}
 - {Key insight 3}
 
+### How to/ Guides:
+
+
 ### Quotes
 > {Notable quote if any}
 
 ### Personal Insights
 {Any personal observations or connections to other knowledge}
 
-## How to Apply
-- {Actionable item 1}
-- {Actionable item 2}
+
 
 ## Related Resources
 - {Links to related resources if known}
@@ -221,13 +222,6 @@ modified: {YYYY-MM-DD}
 **Area:** `= this.area`
 **Projects Related:** {Links to relevant projects if any}
 
-## Review
-
-**Would I recommend this?** Yes/No
-
-**Who would benefit from this?** {Target audience}
-
-**When to revisit:** {Suggestion}
 
 ---
 *Resource added: {YYYY-MM-DD}*

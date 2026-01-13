@@ -1,6 +1,6 @@
 ---
 type: project
-status: Planning
+status: Cancelled
 priority: High
 area: "[[Big Beautiful Business Idea]]"
 due-date: 2026-01-04
