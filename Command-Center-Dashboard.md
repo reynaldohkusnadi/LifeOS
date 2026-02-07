@@ -66,13 +66,13 @@ color: purple
 
 ### Active Projects (Using Dataview as alternative)
 ```dataview
-TABLE 
+TABLE
   status as "Status",
-  priority as "High",
+  priority as "Priority",
   due-date as "Due Date",
   progress as "Progress"
 FROM "Projects"
-WHERE status = "In Progress" OR status = "Todo" OR status = "Planning"
+WHERE type = "project" AND (status = "In Progress" OR status = "Todo" OR status = "Planning")
 SORT priority DESC, due-date ASC
 ```
 

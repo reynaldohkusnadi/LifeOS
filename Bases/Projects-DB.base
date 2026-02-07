@@ -1,4 +1,7 @@
-filters: file.inFolder("Projects")
+filters:
+  and:
+    - file.inFolder("Projects")
+    - 'type == "project"'
 properties:
   status:
     displayName: Status

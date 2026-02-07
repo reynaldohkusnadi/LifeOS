@@ -33,11 +33,29 @@ modified: <% tp.date.now("YYYY-MM-DD") %>
 
 ## Tasks
 
-```dataview
-TASK
-FROM "Tasks"
-WHERE contains(project, this.file.name)
-SORT priority DESC
+```base
+filters:
+  and:
+    - file.inFolder(this.file.folder)
+    - 'type == "task"'
+properties:
+  task-name:
+    displayName: Task
+  status:
+    displayName: Status
+  priority:
+    displayName: Priority
+  due-date:
+    displayName: Due Date
+views:
+  - type: table
+    name: Project Tasks
+    order:
+      - file.name
+      - task-name
+      - status
+      - priority
+      - due-date
 ```
 
 ## Resources & Links

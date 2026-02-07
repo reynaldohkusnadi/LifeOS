@@ -12,11 +12,28 @@ This is an **Obsidian vault** implementing a Notion-style Command Center dashboa
 
 ### PARA Method Structure
 The vault follows the PARA organizational method:
-- **Projects/** - Active projects with defined goals and timelines
+- **Projects/** - Active projects, each in its own subfolder (see Folder-Per-Project structure below)
 - **Areas/** - Ongoing areas of responsibility
-- **Resources/** - Reference materials (articles, books, tools)
-- **Tasks/** - Individual tasks linked to projects
+- **Resources/** - Global reference materials (articles, books, tools)
+- **Tasks/** - Standalone tasks not linked to any specific project
 - **Notes/** - General notes and quick captures
+
+### Folder-Per-Project Structure
+Each project is a folder containing its own tasks and resources:
+```
+Projects/
+  Project Name/
+    Project Name.md          ← project note (index + context, type: project)
+    Tasks/
+      task-1.md              ← project tasks (type: task)
+      task-2.md
+    Resources/
+      reference.md           ← project-specific resources
+```
+- The project note (same name as folder) serves as both the index and context
+- Tasks inside a project folder should have `project: "[[Project Name]]"` in frontmatter
+- The global `Tasks/` folder is for standalone tasks not tied to any project
+- The global `Resources/` folder is for general reference materials
 
 ### Obsidian Bases System
 Bases are Obsidian's native database feature (similar to Notion databases):
@@ -34,32 +51,36 @@ Bases are Obsidian's native database feature (similar to Notion databases):
 ## Important File Formats
 
 ### Base Files (.base)
-YAML configuration files that define database views:
+YAML configuration files that define database views. Bases query the entire vault by default; folder scoping is achieved through filters.
 
 ```yaml
-name: Database Name
-source:
-  type: folder
-  path: FolderName
-  recursive: true
-columns:
-  - type: property
-    key: property-name
-    label: Display Name
-    width: 150
-  - type: formula
-    key: computed-field
-    formula: this.linkedProperty.field  # Rollup example
-sort:
-  - by: property-name
-    order: desc
-filters:
-  - type: property
-    property: status
-    operator: is
-    value: Active
-view: table  # or "card"
+filters: file.inFolder("FolderName")  # Recursive - includes all subfolders
+# OR for non-recursive (direct children only):
+# filters: 'file.folder == "FolderName"'
+# OR compound filters:
+# filters:
+#   and:
+#     - file.inFolder("Projects")
+#     - 'type == "project"'
+formulas:
+  computed-field: linkedProperty.field  # Rollup from linked note
+properties:
+  property-name:
+    displayName: Display Name
+views:
+  - type: table  # or "card"
+    name: View Name
+    order:
+      - file.name
+      - property-name
 ```
+
+**Key filter functions:**
+- `file.inFolder("Folder")` - Recursive folder match (includes all subfolders)
+- `file.folder == "Folder"` - Non-recursive (direct children only)
+- `file.inFolder(this.file.folder)` - Dynamic: current note's folder (recursive)
+- `file.hasTag("tag")` - Match by tag
+- `file.hasLink("Note")` - Match by outgoing link
 
 ### Template Files
 Markdown files using **Templater syntax** (not standard template literals):
@@ -103,15 +124,14 @@ Display properties from linked notes using dot notation in Base formulas:
 
 ```yaml
 # In All-Tasks-DB.base
-- type: formula
-  key: project-status
-  formula: this.project.status  # Shows status from linked project
+formulas:
+  project-status: project.status  # Shows status from linked project
 ```
 
 **Formula Examples:**
-- `this.project.status` - Get status from linked project
-- `length(this.projects)` - Count number of linked projects
-- `this.area.type` - Get type from linked area
+- `project.status` - Get status from linked project
+- `length(projects)` - Count number of linked projects
+- `area.type` - Get type from linked area
 
 ## Modifying the System
 
@@ -161,15 +181,18 @@ Edit [.obsidian/snippets/command-center.css](.obsidian/snippets/command-center.c
 ## Common Workflows
 
 ### Creating a New Project
-1. Use Project-Template.md (via Templater or button)
-2. Fill in YAML properties: status, priority, area, due-date
-3. Link to an existing Area note: `area: "[[Area Name]]"`
-4. Project automatically appears in Projects-DB
+1. Create a new folder under `Projects/` with the project name
+2. Create the project note inside using Project-Template.md (same name as folder)
+3. Create `Tasks/` and `Resources/` subfolders inside the project folder
+4. Fill in YAML properties: status, priority, area, due-date
+5. Link to an existing Area note: `area: "[[Area Name]]"`
+6. Project automatically appears in Projects-DB (filtered by `type == "project"`)
 
 ### Creating Tasks for a Project
-1. Use Task-Template.md
+1. Use Task-Template.md, save to the project's `Tasks/` subfolder
 2. Link to project: `project: "[[Project Name]]"`
-3. Task appears in All-Tasks-DB with project status rollup
+3. Task appears in both the project's inline task view AND the centralized All-Tasks-DB
+4. The All-Tasks-DB pulls tasks from all project subfolders recursively
 
 ### Adding Relational Properties
 To create new relationships between note types:
