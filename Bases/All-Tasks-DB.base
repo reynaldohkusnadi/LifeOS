@@ -1,4 +1,9 @@
-filters: file.inFolder("Tasks")
+filters:
+  or:
+    - file.inFolder("Tasks")
+    - and:
+        - file.inFolder("Projects")
+        - 'type == "task"'
 formulas:
   project-status: project.status
 properties:
